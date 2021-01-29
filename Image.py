@@ -14,7 +14,7 @@ face_data = cv2.CascadeClassifier('Data_Face.xml')
 # eye_data = cv2.CascadeClassifier('haarcascade_eye.xml')
 smile_data = cv2.CascadeClassifier('Data_Smile.xml')
 
-img = cv2.imread('smile3.jpg')
+img = cv2.imread('me.jpeg')
 
 # Convert the image to a grayscale image
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -23,7 +23,7 @@ gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 face_coo = face_data.detectMultiScale(gray_img)
 # eye_coo = eye_data.detectMultiScale(gray_img)
 
-smile_coo = smile_data.detectMultiScale(gray_img)
+smile_coo = smile_data.detectMultiScale(gray_img, scaleFactor=1.7,minNeighbors=20)
 # detectMultiScale it is going to detect the faces in multiscale 
 
 # prints the face Coordinates 
@@ -39,12 +39,15 @@ print(face_coo)
 # For Face 
 for x,y,w,h in face_coo:
     cv2.rectangle(img, (x,y), (x+w, y+h), (randrange(156,256),randrange(156,256),randrange(156,256)), 2)
+    # smile = (x,y,w,h)
 
+    # For Smile 
+    # for x,y,w,h in smile_coo:
+    #     cv2.rectangle(img, (x,y), (x+w, y+h),(0,255,0), 3)
 
-
-# For Smile 
-for x,y,w,h in smile_coo:
-    cv2.rectangle(img, (x,y), (x+w, y+h),(0,255,0), 1)
+    # Label the rectangle if Smiling 
+    if len(smile_coo) > 0:
+        cv2.putText(img, "Smiling", (x,y+h-360), fontScale=2, fontFace=cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, color=(255,255,255))
 
 # cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
 # cv2.rectangle(img, (30,38), (30 + 118,38 + 118), (255,0,0), 4)
