@@ -14,7 +14,7 @@ face_data = cv2.CascadeClassifier('Data_Face.xml')
 # eye_data = cv2.CascadeClassifier('haarcascade_eye.xml')
 smile_data = cv2.CascadeClassifier('Data_Smile.xml')
 
-img = cv2.imread('smile1.jpg')
+img = cv2.imread('smile3.jpg')
 
 # Convert the image to a grayscale image
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
